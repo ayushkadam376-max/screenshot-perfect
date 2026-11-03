@@ -285,7 +285,7 @@ function Reserve() {
     try {
       await submitBooking({ data: f });
       setMsg({ ok: true, t: "Thank you, we'll confirm your stay shortly." });
-    } catch {
+    } catch (e) { console.error("booking", e);
       setMsg({ ok: false, t: "Sorry, something went wrong. Please try again." });
     } finally { setBusy(false); }
   };
