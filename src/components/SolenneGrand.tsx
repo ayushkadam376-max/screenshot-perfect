@@ -275,12 +275,19 @@ function Reserve() {
   const [f, setF] = useState({ name: "", email: "", in: "", out: "", guests: "2", room: ROOMS[0]!.name, notes: "" });
   const [msg, setMsg] = useState<{ ok: boolean; t: string } | null>(null);
   const set = (k: keyof typeof f) => (e: { target: { value: string } }) => setF({ ...f, [k]: e.target.value });
-  const submit = () => {
+  const [busy, setBusy] = useState(false);
+  const submit = async () => {
     if (!f.name.trim()) return setMsg({ ok: false, t: "Please enter your name." });
     if (!/^\S+@\S+\.\S+$/.test(f.email)) return setMsg({ ok: false, t: "Please enter a valid email." });
     if (!f.in || !f.out) return setMsg({ ok: false, t: "Please choose check-in and check-out dates." });
     if (f.out <= f.in) return setMsg({ ok: false, t: "Check-out must be after check-in." });
-    setMsg({ ok: true, t: "Thank you, we'll confirm your stay shortly." });
+    setBusy(true);
+    try {
+      await submitBooking({ data: f });
+      setMsg({ ok: true, t: "Thank you, we'll confirm your stay shortly." });
+    } catch (e) { console.error("booking", e);
+      setMsg({ ok: false, t: "Sorry, something went wrong. Please try again." });
+    } finally { setBusy(false); }
   };
   return (
     <section className="wrap" style={{ paddingBottom: 140 }}>
