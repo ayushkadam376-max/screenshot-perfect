@@ -79,7 +79,7 @@ export default function SolenneGrand() {
   useEffect(() => {
     const el = root.current!, cv = canvas.current!;
     const gl = cv.getContext("webgl2", { premultipliedAlpha: true, alpha: true });
-    let prog: WebGLProgram | null = null, U: Record<string, WebGLUniformLocation | null> = {};
+    let prog: WebGLProgram | null = null, U = {} as Record<"R" | "T" | "S" | "K" | "P", WebGLUniformLocation | null>;
     if (gl) {
       const sh = (t: number, s: string) => { const x = gl.createShader(t)!; gl.shaderSource(x, s); gl.compileShader(x); return x; };
       prog = gl.createProgram()!;
@@ -88,7 +88,7 @@ export default function SolenneGrand() {
       const b = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, b);
       gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
       gl.enableVertexAttribArray(0); gl.vertexAttribPointer(0, 2, gl.FLOAT, false, 0, 0);
-      for (const n of ["R", "T", "S", "K", "P"]) U[n] = gl.getUniformLocation(prog, n);
+      for (const n of ["R", "T", "S", "K", "P"] as const) U[n] = gl.getUniformLocation(prog, n);
       gl.enable(gl.BLEND); gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
     }
     const resize = () => {
@@ -272,7 +272,7 @@ function Rooms() {
 }
 
 function Reserve() {
-  const [f, setF] = useState({ name: "", email: "", in: "", out: "", guests: "2", room: ROOMS[0].name, notes: "" });
+  const [f, setF] = useState({ name: "", email: "", in: "", out: "", guests: "2", room: ROOMS[0]!.name, notes: "" });
   const [msg, setMsg] = useState<{ ok: boolean; t: string } | null>(null);
   const set = (k: keyof typeof f) => (e: { target: { value: string } }) => setF({ ...f, [k]: e.target.value });
   const submit = () => {
