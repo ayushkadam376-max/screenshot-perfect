@@ -4,7 +4,9 @@ import skyNight from "@/assets/Misty_Blue_Milky_Way_Night_Sky.png.asset.json";
 import hotelMorning from "@/assets/The_Olive_Grand_Hotel_at_Dawn.png.asset.json";
 import hotelNight from "@/assets/Dusk_at_The_Olive_Grand_Hotel.png.asset.json";
 import room1 from "@/assets/Luxury_Hotel_Room_Overlooking_Misty_Mountains.png.asset.json";
-import room2 from "@/assets/Olive_Luxe_Hotel_Suites.png.asset.json";
+import suite2 from "@/assets/suite_2.jpg.asset.json";
+import suite3 from "@/assets/suite_3.jpg.asset.json";
+import suite4 from "@/assets/suite_4.jpg.asset.json";
 
 const SINK = 240, RISE = 820, DEPTH = 0.27;
 type View = "home" | "rooms" | "reserve";
@@ -15,9 +17,9 @@ const smooth = (a: number, b: number, x: number) => {
 
 const ROOMS = [
   { name: "Dawn Deluxe Room", line: "Bright, calm and generous at 38 m².", price: "$320", img: room1.url, alt: "Deluxe room with a wide window over misty mountains" },
-  { name: "Olive Terrace Suite", line: "Private terrace overlooking the gardens.", price: "$540", img: room2.url, alt: "Olive-toned suite with soft lighting" },
-  { name: "Moonlit Executive Suite", line: "Separate lounge, soaking tub and city views.", price: "$780", img: hotelNight.url, alt: "Hotel facade glowing at dusk" },
-  { name: "The Solenne Residence", line: "Our presidential suite with butler service.", price: "$1,450", img: hotelMorning.url, alt: "Grand hotel at dawn among olive gardens" },
+  { name: "Olive Terrace Suite", line: "Private terrace overlooking the gardens.", price: "$540", img: suite2.url, alt: "Suite lounge opening onto a garden terrace" },
+  { name: "Moonlit Executive Suite", line: "Separate lounge, soaking tub and city views.", price: "$780", img: suite3.url, alt: "Executive suite with a moonlit view" },
+  { name: "The Solenne Residence", line: "Our presidential suite with butler service.", price: "$1,450", img: suite4.url, alt: "Spacious residence lounge with valley views" },
 ];
 
 const VERT = `#version 300 es
